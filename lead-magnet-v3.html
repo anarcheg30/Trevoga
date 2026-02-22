@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Почему ты не можешь просто «взять себя в руки» — и что с этим делать</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f5f0;
+  --bg2: #f0ede6;
+  --ink: #1a1814;
+  --ink2: #2e2b26;
+  --mid: #6b6560;
+  --light: #9c978f;
+  --gold: #8a6f3e;
+  --gold-l: #b08d52;
+  --gold-bg: rgba(138,111,62,0.07);
+  --gold-border: rgba(138,111,62,0.18);
+  --accent: #3a5a8a;
+  --accent-bg: rgba(58,90,138,0.06);
+  --red: #8a3a3a;
+  --red-bg: rgba(138,58,58,0.06);
+  --green: #3a6e4e;
+  --green-bg: rgba(58,110,78,0.06);
+  --border: rgba(26,24,20,0.08);
+  --card: #ffffff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height:1.75;
+  font-size:16px;
+}
+
+/* PROGRESS */
+#prog { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--gold-l)); z-index:100; transition:width .15s; }
+
+/* READING PROGRESS */
+.reading-bar {
+  position:fixed; top:3px; left:0; right:0;
+  background:rgba(138,111,62,0.08); height:2px; z-index:99;
+}
+
+/* MAIN LAYOUT */
+.wrap { max-width:720px; margin:0 auto; padding:0 24px; }
+.wrap--wide { max-width:900px; margin:0 auto; padding:0 24px; }
+
+/* ── HEADER ── */
+header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding:18px 0;
+}
+.header-inner { max-width:720px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
+.author-line { display:flex; align-items:center; gap:12px; }
+.author-dot { width:36px; height:36px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; color:white; font-size:13px; font-weight:600; flex-shrink:0; }
+.author-name { font-size:13px; color:var(--ink2); font-weight:500; }
+.author-role { font-size:11px; color:var(--light); margin-top:1px; }
+.header-tag { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); border:1px solid var(--gold-border); padding:5px 14px; border-radius:100px; }
+
+/* ── HERO ── */
+.hero { padding:72px 0 56px; }
+.hero-kicker { font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; display:block; }
+.hero h1 {
+  font-family:'Lora', serif;
+  font-size:clamp(30px,5.5vw,52px);
+  font-weight:500; line-height:1.15;
+  color:var(--ink); margin-bottom:24px;
+}
+.hero h1 em { font-style:italic; color:var(--gold); }
+.hero-lead {
+  font-size:18px; color:var(--mid); font-weight:300; line-height:1.8;
+  max-width:620px; border-left:3px solid var(--gold-border); padding-left:20px;
+  margin-bottom:40px;
+}
+.hero-meta { display:flex; gap:24px; flex-wrap:wrap; }
+.meta-item { font-size:12px; color:var(--light); display:flex; align-items:center; gap:6px; }
+.meta-item::before { content:'·'; }
+
+/* ── DIVIDER ── */
+.divider { border:none; border-top:1px solid var(--border); margin:56px 0; }
+.divider--gold { border-color:var(--gold-border); }
+
+/* ── SECTION ── */
+.section { margin-bottom:72px; }
+
+h2 {
+  font-family:'Lora', serif;
+  font-size:clamp(22px,3.5vw,32px);
+  font-weight:500; color:var(--ink); line-height:1.25;
+  margin-bottom:24px;
+}
+h2 em { font-style:italic; color:var(--gold); }
+
+h3 {
+  font-family:'Lora', serif;
+  font-size:clamp(17px,2.5vw,21px);
+  font-weight:500; color:var(--ink2); line-height:1.3;
+  margin-bottom:14px; margin-top:40px;
+}
+
+p { margin-bottom:20px; color:var(--ink2); }
+p:last-child { margin-bottom:0; }
+
+strong { font-weight:600; color:var(--ink); }
+em { font-style:italic; }
+
+/* HIGHLIGHT BOX */
+.box {
+  border-radius:8px; padding:28px 32px; margin:36px 0;
+}
+.box--gold { background:var(--gold-bg); border:1px solid var(--gold-border); }
+.box--blue { background:var(--accent-bg); border:1px solid rgba(58,90,138,0.15); }
+.box--red  { background:var(--red-bg);   border:1px solid rgba(138,58,58,0.15); }
+.box--green{ background:var(--green-bg); border:1px solid rgba(58,110,78,0.15); }
+.box--white{ background:var(--card); border:1px solid var(--border); box-shadow:0 2px 16px rgba(0,0,0,0.04); }
+
+.box-label { font-size:9px; letter-spacing:2.5px; text-transform:uppercase; font-weight:600; margin-bottom:12px; display:block; }
+.box-label--gold  { color:var(--gold); }
+.box-label--blue  { color:var(--accent); }
+.box-label--red   { color:var(--red); }
+.box-label--green { color:var(--green); }
+.box p { color:var(--ink2); margin-bottom:12px; }
+.box p:last-child { margin-bottom:0; }
+
+/* PULL QUOTE */
+.pull {
+  font-family:'Lora', serif;
+  font-size:clamp(19px,3vw,26px);
+  font-style:italic;
+  color:var(--gold);
+  line-height:1.5;
+  border-left:4px solid var(--gold);
+  padding:4px 0 4px 28px;
+  margin:40px 0;
+}
+
+/* LIST CUSTOM */
+.list { list-style:none; margin:20px 0; }
+.list li {
+  display:flex; align-items:flex-start; gap:14px;
+  padding:12px 0; border-bottom:1px solid var(--border);
+  font-size:15px; color:var(--mid); line-height:1.65;
+}
+.list li:last-child { border-bottom:none; }
+.list li::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:8px; }
+
+/* MECHANISM STEPS */
+.steps { counter-reset:step; margin:32px 0; }
+.step {
+  display:grid; grid-template-columns:48px 1fr;
+  gap:20px; align-items:start; margin-bottom:20px;
+}
+.step-n {
+  width:44px; height:44px; border-radius:50%;
+  background:var(--gold); color:white;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Lora', serif; font-size:18px; font-weight:500;
+  flex-shrink:0;
+}
+.step-body h4 { font-size:15px; font-weight:600; color:var(--ink); margin-bottom:6px; line-height:1.3; }
+.step-body p { font-size:14px; color:var(--mid); margin:0; line-height:1.7; }
+
+/* COMPARISON TABLE */
+.compare { margin:32px 0; border-radius:8px; overflow:hidden; border:1px solid var(--border); }
+.compare-head { display:grid; grid-template-columns:1fr 1fr; }
+.compare-cell-h {
+  padding:14px 20px; font-size:12px; font-weight:600;
+  letter-spacing:1.5px; text-transform:uppercase;
+}
+.compare-cell-h:first-child { background:var(--red-bg); color:var(--red); border-right:1px solid var(--border); }
+.compare-cell-h:last-child  { background:var(--green-bg); color:var(--green); }
+
+.compare-row { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--border); }
+.compare-row:nth-child(even) { background:rgba(0,0,0,0.015); }
+.compare-cell {
+  padding:14px 20px; font-size:14px; color:var(--mid); line-height:1.6;
+}
+.compare-cell:first-child { border-right:1px solid var(--border); }
+
+/* PROGRAM CARDS */
+.programs { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:32px 0; }
+.prog-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:8px; padding:24px 22px;
+  border-top:3px solid var(--gold);
+}
+.prog-card h4 { font-size:14px; font-weight:600; color:var(--ink); margin-bottom:8px; }
+.prog-card p { font-size:13px; color:var(--mid); line-height:1.7; margin:0; }
+.prog-card .prog-origin { font-size:11px; color:var(--gold); font-weight:500; margin-top:10px; letter-spacing:0.5px; }
+
+/* SIGNAL CHART */
+.signals { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin:32px 0; }
+.signal-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:8px; padding:20px 18px; text-align:center;
+}
+.signal-icon { font-size:28px; display:block; margin-bottom:10px; }
+.signal-label { font-size:12px; font-weight:600; color:var(--ink); margin-bottom:6px; }
+.signal-desc { font-size:12px; color:var(--light); line-height:1.6; }
+
+/* ── TEST SECTION ── */
+.test-section {
+  background:var(--ink); color:var(--bg);
+  padding:80px 0 100px;
+}
+
+.test-section h2 { color:#f0ede6; }
+.test-section h2 em { color:var(--gold-l); }
+.test-section p { color:rgba(240,237,230,0.7); }
+
+.test-intro-box {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px; padding:24px 28px; margin-bottom:40px;
+  font-size:14px; color:rgba(240,237,230,0.6); line-height:1.75;
+}
+
+.scale-pills { display:flex; gap:8px; flex-wrap:wrap; margin:28px 0 40px; }
+.scale-pill {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+  padding:8px 16px; border-radius:100px; font-size:12px; color:rgba(240,237,230,0.6);
+  display:flex; align-items:center; gap:8px;
+}
+.scale-pill strong { color:var(--gold-l); font-size:14px; }
+
+/* Q GROUPS */
+.q-grp { margin-bottom:36px; }
+.q-grp-label {
+  font-size:10px; letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--gold-l); opacity:.8; margin-bottom:14px; display:block;
+}
+
+.q-card {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07);
+  border-radius:8px; padding:22px 26px; margin-bottom:10px;
+  display:flex; align-items:flex-start; gap:18px;
+  transition:border-color .25s;
+}
+.q-card:hover { border-color:rgba(138,111,62,0.3); }
+.q-card.answered { border-color:rgba(138,111,62,0.25); }
+
+.q-num {
+  font-family:'Lora', serif; font-size:22px; font-weight:400;
+  color:var(--gold-l); opacity:.4; min-width:24px; margin-top:2px; flex-shrink:0;
+}
+
+.q-inner { flex:1; }
+.q-text { font-size:14.5px; color:rgba(240,237,230,0.85); font-weight:300; line-height:1.65; margin-bottom:14px; }
+
+.opts { display:flex; gap:7px; flex-wrap:wrap; }
+.opt {
+  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+  color:rgba(240,237,230,0.45); padding:6px 14px; border-radius:100px;
+  font-size:12px; font-family:'Inter',sans-serif; cursor:pointer; transition:all .2s;
+}
+.opt:hover { border-color:var(--gold-l); color:var(--gold-l); }
+.opt.sel { background:rgba(138,111,62,0.2); border-color:var(--gold-l); color:var(--gold-l); font-weight:500; }
+
+.run-btn {
+  width:100%; padding:20px; border-radius:8px;
+  background:linear-gradient(135deg,var(--gold),#6b5030);
+  border:none; color:#f7f5f0;
+  font-family:'Inter',sans-serif; font-size:14px; font-weight:600; letter-spacing:1.5px;
+  cursor:pointer; transition:all .3s; margin-top:12px;
+}
+.run-btn:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(138,111,62,0.4); }
+
+/* RESULT */
+.result-wrap { display:none; margin-top:48px; animation:up .6s ease; }
+.result-wrap.show { display:block; }
+@keyframes up { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.result-card {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(138,111,62,0.25);
+  border-radius:12px; padding:48px 40px; text-align:center;
+}
+
+.r-score {
+  font-family:'Lora', serif; font-size:80px; font-weight:400;
+  color:var(--gold-l); line-height:1; margin-bottom:4px;
+}
+.r-of { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:rgba(240,237,230,0.3); margin-bottom:28px; }
+.r-title { font-family:'Lora', serif; font-size:clamp(20px,3vw,28px); color:#f0ede6; margin-bottom:18px; }
+.r-text { font-size:15px; color:rgba(240,237,230,0.6); font-weight:300; line-height:1.85; max-width:560px; margin:0 auto 36px; }
+
+.r-zones {
+  background:rgba(138,111,62,0.08); border:1px solid rgba(138,111,62,0.15);
+  border-radius:8px; padding:24px; text-align:left; max-width:560px; margin:0 auto 32px;
+}
+.r-zones-h { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--gold-l); font-weight:600; margin-bottom:14px; }
+.z-tag {
+  display:inline-block; background:rgba(138,111,62,0.12);
+  border:1px solid rgba(138,111,62,0.25); color:var(--gold-l);
+  padding:5px 14px; border-radius:100px; font-size:12px; margin:4px;
+}
+.z-tag.hot { border-color:rgba(180,100,80,0.4); color:#e0aa88; background:rgba(180,100,80,0.1); }
+
+.r-what {
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+  border-radius:8px; padding:24px; text-align:left; max-width:560px; margin:0 auto 36px;
+  font-size:14px; color:rgba(240,237,230,0.6); line-height:1.8;
+}
+.r-what-h { font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(240,237,230,0.35); font-weight:600; margin-bottom:14px; }
+.r-what-item { display:flex; gap:10px; margin-bottom:10px; align-items:flex-start; }
+.r-what-item::before { content:'→'; color:var(--gold-l); flex-shrink:0; }
+.r-what-item:last-child { margin-bottom:0; }
+
+.cta-btn {
+  display:inline-block;
+  background:linear-gradient(135deg,var(--gold-l),var(--gold));
+  color:var(--ink); font-family:'Inter',sans-serif;
+  font-size:13px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
+  padding:18px 48px; border-radius:100px; text-decoration:none;
+  transition:all .3s; border:none; cursor:pointer;
+}
+.cta-btn:hover { transform:translateY(-3px); box-shadow:0 14px 44px rgba(176,141,82,0.4); }
+.cta-note { font-size:12px; color:rgba(240,237,230,0.3); margin-top:14px; line-height:1.7; }
+
+/* FOOTER */
+footer {
+  background:var(--bg2); border-top:1px solid var(--border);
+  padding:48px 24px; text-align:center;
+}
+.f-name { font-family:'Lora', serif; font-size:20px; font-style:italic; color:var(--gold); margin-bottom:4px; }
+.f-role { font-size:12px; color:var(--light); letter-spacing:1.5px; text-transform:uppercase; }
+.f-disc { font-size:11px; color:var(--light); margin-top:28px; opacity:.6; }
+
+/* FADE */
+.fade { opacity:0; transform:translateY(24px); transition:opacity .65s ease,transform .65s ease; }
+.fade.in { opacity:1; transform:none; }
+
+@media(max-width:640px) {
+  .programs { grid-template-columns:1fr; }
+  .compare-head,.compare-row { grid-template-columns:1fr; }
+  .compare-cell:first-child { border-right:none; border-bottom:1px solid var(--border); }
+  .compare-cell-h:first-child { border-right:none; }
+  .result-card { padding:32px 22px; }
+  .r-score { font-size:60px; }
+  .header-inner { flex-direction:column; gap:12px; align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="author-line">
+      <div class="author-dot">АА</div>
+      <div>
+        <div class="author-name">Анар Ахмедов</div>
+        <div class="author-role">Нейрокоуч · Метод «Бенефактор»</div>
+      </div>
+    </div>
+    <div class="header-tag">Авторский материал</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-kicker">Если ты читаешь это — скорее всего, ты уже знаешь изнутри то, о чём здесь написано</span>
+    <h1>Почему ты не можешь<br>просто «взять себя в руки» —<br>и <em>что на самом деле происходит</em></h1>
+    <p class="hero-lead">Большинство людей с тревогой, паническими атаками и хроническим напряжением уверены, что дело в характере, слабости или обстоятельствах. Это не так. И в этом материале я объясню почему — простым языком, без терминологии и без воды.</p>
+    <div class="hero-meta">
+      <span class="meta-item">10–12 минут чтения</span>
+      <span class="meta-item">Тест в конце</span>
+      <span class="meta-item">Научная основа</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" style="max-width:720px;margin:0 auto 72px;">
+
+<!-- ═══ ЧАСТЬ 1: МЕХАНИЗМ ═══ -->
+<section class="section fade">
+  <div class="wrap">
+    <h2>Часть 1. Откуда берётся тревога,<br>которую не объяснить логикой</h2>
+
+    <p>Ты замечал(а), что тревога часто возникает не в ответ на реальную опасность? Сердце ускоряется перед телефонным звонком. Не хочется ехать в метро. Перед важной встречей — ком в горле, хотя ты всё знаешь и всё умеешь. В три ночи голова прокручивает сценарии, которые никогда не случатся.</p>
+
+    <p>Это не слабость. И не воображение. Это работает очень конкретный механизм мозга — и именно в нём лежит ответ на вопрос «почему ничего не помогает».</p>
+
+    <h3>Мозг как система защиты</h3>
+
+    <p>Миллионы лет назад наш мозг получил одну главную задачу: <strong>выжить</strong>. Для этого он научился делать кое-что удивительное — запоминать опасные ситуации и автоматически реагировать на всё, что на них похоже.</p>
+
+    <p>Это работало прекрасно, когда главной угрозой был хищник. Но сегодня та же система реагирует на письма с жалобами, на пробки, на критику начальника — так же, как на угрозу жизни. С теми же гормонами. С той же интенсивностью.</p>
+
+    <div class="box box--gold">
+      <span class="box-label box-label--gold">Ключевое понимание</span>
+      <p>Паническая атака — это не сумасшествие и не болезнь сердца. Это ваша система защиты, которая <strong>сработала в ситуации, где реальной угрозы не было</strong>. Тело выполнило свою работу честно — просто по ложному сигналу.</p>
+      <p>И это меняет всё. Потому что ложный сигнал можно отключить.</p>
+    </div>
+
+    <h3>Где живёт этот «ложный сигнал»</h3>
+
+    <p>В подсознании. Это не метафора — это буквально нейронные цепи в структурах мозга (прежде всего в миндалине), которые работают <em>быстрее, чем сознание успевает что-либо осмыслить</em>.</p>
+
+    <p>Скорость реакции подсознания — примерно <strong>в 200 000 раз быстрее</strong> сознательного мышления. Когда ты чувствуешь тревогу в метро, подсознание уже «решило» всё за 0,05 секунды — до того, как ты успел(а) подумать что-либо.</p>
+
+    <p>Вот почему логика не помогает. Вот почему «просто успокойся» не работает. Ты пытаешься управлять реакцией через сознание — но она уже произошла на другом уровне.</p>
+
+    <div class="pull">«Ты не можешь думать быстрее, чем работает твоё подсознание. Но ты можешь изменить то, что в нём записано.»</div>
+  </div>
+</section>
+
+<hr class="divider divider--gold" style="max-width:720px;margin:0 auto 72px;">
+
+<!-- ═══ ЧАСТЬ 2: КАК ЗАПИСЫВАЮТСЯ ПРОГРАММЫ ═══ -->
+<section class="section fade">
+  <div class="wrap">
+    <h2>Часть 2. Как в подсознание<br>попадают <em>программы, которые мешают</em></h2>
+
+    <p>Подсознание не выбирает, что запоминать. Оно записывает всё подряд, особенно то, что сопровождалось сильной эмоцией. Это называется <strong>эмоциональное кодирование</strong>.</p>
+
+    <p>Проще говоря: если что-то когда-то произошло рядом с сильным страхом, болью или стыдом — подсознание создаёт связь. И потом при любом похожем триггере активирует ту же реакцию.</p>
+
+    <h3>Откуда берутся эти программы — три главных пути</h3>
+
+    <div class="programs">
+      <div class="prog-card">
+        <h4>Детский опыт</h4>
+        <p>До 7 лет мозг работает как губка — критического мышления нет. Всё, что говорили родители, учителя, всё, что ребёнок пережил — записывается как факт о мире и о себе. «Не высовывайся», «ты недостаточно хорош», «мир опасен» — это не слова. Это программы.</p>
+        <div class="prog-origin">↳ Происхождение: родители, семья, школа</div>
+      </div>
+      <div class="prog-card">
+        <h4>Сильный стресс или травма</h4>
+        <p>Один очень интенсивный эпизод может создать долгосрочную программу. Публичный провал. Потеря. Предательство. Авария. Мозг «запоминает» не только само событие, но и всё, что его окружало — запах, место, интонацию — и потом реагирует на всё похожее.</p>
+        <div class="prog-origin">↳ Происхождение: один момент — годы реакций</div>
+      </div>
+      <div class="prog-card">
+        <h4>Накопленное напряжение</h4>
+        <p>Иногда нет одного события. Есть годы тихого стресса — работа, отношения, ответственность, невозможность расслабиться. Нервная система постепенно переходит в режим постоянной готовности, и это становится «нормой». Тело просто забывает, как бывает иначе.</p>
+        <div class="prog-origin">↳ Происхождение: хроническая перегрузка</div>
+      </div>
+      <div class="prog-card">
+        <h4>Усвоенные убеждения</h4>
+        <p>«Сильные справляются сами», «нельзя показывать слабость», «я должен(а) держаться» — эти установки не рождаются с нами. Они приходят извне. Но подсознание принимает их как личную правду и потом работает согласно им — часто против твоих же интересов.</p>
+        <div class="prog-origin">↳ Происхождение: культура, окружение, образы</div>
+      </div>
+    </div>
+
+    <div class="box box--blue">
+      <span class="box-label box-label--blue">Почему это важно понять</span>
+      <p>Ты не выбирал(а) эти программы. Они не говорят о том, какой ты человек. Они говорят о том, <strong>через что ты прошёл(шла)</strong>. И именно поэтому работать с ними нужно не через силу воли — а напрямую, на том уровне, где они хранятся.</p>
+    </div>
+
+    <h3>Как одна программа рождает цепочку симптомов</h3>
+
+    <p>Ключевое, что нужно понять: в подсознании программы не хранятся отдельно. Они связаны в нейронные цепи. Одна причина может питать десятки разных симптомов.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body">
+          <h4>Корневая программа</h4>
+          <p>Например: «мир небезопасен» или «я не могу доверять другим». Записана давно, часто незаметно.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body">
+          <h4>Активируется через триггер</h4>
+          <p>Любой похожий сигнал — место, интонация, ситуация — и нейронная цепь запускается автоматически.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body">
+          <h4>Тело реагирует</h4>
+          <p>Сердце, дыхание, мышцы, гормоны — включается реакция «бей или беги». Это ощущается как паника, тревога, ступор.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body">
+          <h4>Разум пытается объяснить</h4>
+          <p>Сознание подбирает «логичную причину» — хотя реальный источник глубже. Человек думает, что проблема в ситуации, а не в программе.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">5</div>
+        <div class="step-body">
+          <h4>Избегание закрепляет паттерн</h4>
+          <p>Человек начинает обходить триггеры — и подсознание получает подтверждение: «эта ситуация опасна». Цепь усиливается.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="box box--red">
+      <span class="box-label box-label--red">Важно</span>
+      <p>Именно поэтому убирая один симптом, ты не убираешь проблему. Ты отрезаешь ветку, а корень остаётся. Через время вырастает другая ветка — новая тревога, новый страх, новый повод избегать.</p>
+      <p>Работать нужно с <strong>корневой программой</strong> — тогда все связанные с ней реакции начинают меняться автоматически.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider divider--gold" style="max-width:720px;margin:0 auto 72px;">
+
+<!-- ═══ ЧАСТЬ 3: ПОЧЕМУ МЕТОДЫ НЕ РАБОТАЮТ ═══ -->
+<section class="section fade">
+  <div class="wrap">
+    <h2>Часть 3. Почему то, что ты уже пробовал(а),<br><em>давало временный результат</em></h2>
+
+    <p>Если ты читаешь это — скорее всего, ты уже пробовал(а) что-то. Таблетки. Психолога. Медитации. Курсы. Дыхание. Может быть, всё вместе. И что-то, возможно, помогло — но ненадолго. Потом всё вернулось.</p>
+
+    <p>Это не потому что ты «неизлечим(а)». Это потому что большинство методов работает <strong>на неправильном уровне</strong>.</p>
+
+    <div class="compare">
+      <div class="compare-head">
+        <div class="compare-cell-h">Работа с симптомом</div>
+        <div class="compare-cell-h">Работа с причиной</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Таблетка приглушает сигнал тревоги — но программа, которая его запускает, остаётся</div>
+        <div class="compare-cell">Находим, какая именно нейронная программа запускает сигнал, и работаем с ней</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Дыхательные техники успокаивают тело в моменте — но триггер никуда не девается</div>
+        <div class="compare-cell">Убираем эмоциональный заряд из триггера — и он перестаёт запускать реакцию</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Разговорная терапия помогает осознать историю — но осознание не всегда меняет автоматику</div>
+        <div class="compare-cell">Работаем напрямую с подсознанием, минуя долгий путь через анализ прошлого</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Сила воли пытается «задавить» реакцию — и истощает нервную систему ещё сильнее</div>
+        <div class="compare-cell">Не нужно давить — нужно найти исходную команду и изменить её</div>
+      </div>
+    </div>
+
+    <h3>Что происходит с людьми, которые долго пробуют «справляться»</h3>
+
+    <p>Есть характерный паттерн, который я вижу у большинства клиентов: человек годами живёт в тревоге, пробует разные методы, получает временное облегчение — и с каждым разочарованием приходит к выводу «со мной что-то не так» или «это навсегда».</p>
+
+    <p>На самом деле, вывод должен быть другим: <strong>просто работали не там, где живёт проблема</strong>.</p>
+
+    <ul class="list">
+      <li>Тревога — это не черта характера. Это реакция нервной системы, которую можно изменить.</li>
+      <li>Паника — это не признак слабости. Это автоматический протокол защиты, который можно перенастроить.</li>
+      <li>Самосаботаж — это не лень. Это внутренний запрет, у которого есть конкретная причина в подсознании.</li>
+      <li>«Я не могу расслабиться» — это не привычка. Это нервная система в хроническом режиме тревоги.</li>
+    </ul>
+
+    <div class="pull">«Мозг меняется в любом возрасте. Это не поэзия — это нейронаука. Называется нейропластичность. Любая программа, которую подсознание когда-то записало, может быть переписана.»</div>
+  </div>
+</section>
+
+<hr class="divider divider--gold" style="max-width:720px;margin:0 auto 72px;">
+
+<!-- ═══ ЧАСТЬ 4: СИГНАЛЫ ═══ -->
+<section class="section fade">
+  <div class="wrap">
+    <h2>Часть 4. Как понять, что именно<br><em>у тебя работает не так</em></h2>
+
+    <p>Подсознание общается с нами через симптомы. Каждый симптом — это сигнал, у которого есть адрес. Проблема в том, что большинство людей воспринимает симптом как проблему — и пытается «выключить» именно его.</p>
+
+    <p>Посмотри на эту схему — она поможет понять, что стоит за частыми реакциями.</p>
+
+    <div class="signals">
+      <div class="signal-card">
+        <span class="signal-icon">🫀</span>
+        <div class="signal-label">Паника и сердце</div>
+        <div class="signal-desc">Часто корень — страх потери контроля или страх смерти. Не болезнь сердца.</div>
+      </div>
+      <div class="signal-card">
+        <span class="signal-icon">🌀</span>
+        <div class="signal-label">Мыслежвачка</div>
+        <div class="signal-desc">Подсознание ищет «безопасный исход». Корень — тревога неопределённости или страх ошибки.</div>
+      </div>
+      <div class="signal-card">
+        <span class="signal-icon">😶</span>
+        <div class="signal-label">Ступор и «не могу»</div>
+        <div class="signal-desc">Внутренний запрет — обычно страх оценки, провала или потери отношений с близкими.</div>
+      </div>
+      <div class="signal-card">
+        <span class="signal-icon">🪫</span>
+        <div class="signal-label">Апатия и пустота</div>
+        <div class="signal-desc">Нервная система «вышла из зала» после долгого напряжения. Защитный режим отключения.</div>
+      </div>
+      <div class="signal-card">
+        <span class="signal-icon">😤</span>
+        <div class="signal-label">Раздражение и срывы</div>
+        <div class="signal-desc">Накопленное напряжение ищет выход. Часто — вытесненные потребности или долгий запрет на «нет».</div>
+      </div>
+      <div class="signal-card">
+        <span class="signal-icon">🚪</span>
+        <div class="signal-label">Избегание мест</div>
+        <div class="signal-desc">Подсознание «запомнило» место или ситуацию как опасную. Точная привязка — она убирается.</div>
+      </div>
+    </div>
+
+    <div class="box box--green">
+      <span class="box-label box-label--green">Что это означает на практике</span>
+      <p>Когда знаешь, что стоит за симптомом — работа становится точечной. Не «справляйся с тревогой вообще», а «вот конкретная программа — вот конкретная работа с ней». Именно в этом разница между хождением по кругу и реальным движением.</p>
+    </div>
+
+    <p style="margin-top:32px;font-size:15px;color:var(--mid);">Чтобы понять, какие именно программы работают у тебя прямо сейчас — и в каких зонах — я подготовил короткую диагностику. Это не тест «насколько ты плох(а)» — это карта, с которой начинается любая точная работа.</p>
+  </div>
+</section>
+
+<!-- ═══ ТЕСТ ═══ -->
+<section class="test-section" id="test">
+  <div class="wrap">
+    <span class="hero-kicker" style="color:var(--gold-l);margin-bottom:16px;display:block">Экспресс-диагностика</span>
+    <h2>Определи свои <em>активные блоки</em></h2>
+    <p style="max-width:580px;margin-bottom:32px">8 вопросов — и ты получишь карту зон, где подсознание работает против тебя прямо сейчас. Отвечай честно — как есть, не как «должно быть».</p>
+
+    <div class="test-intro-box">
+      🔒 Конфиденциально · Без записи · Без оценки<br>
+      Это не медицинский тест — это ориентир, откуда начинать.
+    </div>
+
+    <div class="scale-pills">
+      <div class="scale-pill"><strong>0</strong> Никогда</div>
+      <div class="scale-pill"><strong>1</strong> Редко</div>
+      <div class="scale-pill"><strong>2</strong> Иногда</div>
+      <div class="scale-pill"><strong>3</strong> Часто</div>
+      <div class="scale-pill"><strong>4</strong> Почти всегда</div>
+    </div>
+
+    <!-- ГРУППА 1 -->
+    <div class="q-grp">
+      <span class="q-grp-label">Тревога и телесные реакции</span>
+      <div class="q-card" data-q="1" data-zone="Хроническая тревога">
+        <div class="q-num">1</div>
+        <div class="q-inner">
+          <div class="q-text">Фоновая тревога присутствует почти каждый день — даже когда внешне всё спокойно. Как будто внутри не выключается мотор напряжения.</div>
+          <div class="opts"><button class="opt" data-v="0">0</button><button class="opt" data-v="1">1</button><button class="opt" data-v="2">2</button><button class="opt" data-v="3">3</button><button class="opt" data-v="4">4</button></div>
+        </div>
+      </div>
+      <div class="q-card" data-q="2" data-zone="Панические реакции тела">
+        <div class="q-num">2</div>
+        <div class="q-inner">
+          <div class="q-text">Бывают эпизоды, когда тело резко включает «сигнализацию»: сердце, дыхание, страх «умру или сойду с ума» — без очевидной реальной угрозы.</div>
+          <div class="opts"><button class="opt" data-v="0">0</button><button class="opt" data-v="1">1</button><button class="opt" data-v="2">2</button><button class="opt" data-v="3">3</button><button class="opt" data-v="4">4</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ГРУППА 2 -->
+    <div class="q-grp">
+      <span class="q-grp-label">Контроль и избегание</span>
+      <div class="q-card" data-q="3" data-zone="Гиперконтроль и страх отпустить">
+        <div class="q-num">3</div>
+        <div class="q-inner">
+          <div class="q-text">Я несу ответственность за всё и всех. Когда что-то выходит из-под контроля — паника. Расслабиться ощущается как «упустить» или «стать слабым(ой)».</div>
+          <div class="opts"><button class="opt" data-v="0">0</button><button class="opt" data-v="1">1</button><button class="opt" data-v="2">2</button><button class="opt" data-v="3">3</button><button class="opt" data-v="4">4</button></div>
+        </div>
+      </div>
+      <div class="q-card" data-q="4" data-zone="Сужение жизни через избегание">
+        <div class="q-num">4</div>
+        <div class="q-inner">
+          <div class="q-text">Я начал(а) обходить определённые места, ситуации или людей. Маршруты укоротились. Встреч стало меньше. Жизнь как-то незаметно сузилась.</div>
+          <div class="opts"><button class="opt" data-v="0">0</button><button class="opt" data-v="1">1</button><button class="opt" data-v="2">2</button><button class="opt" data-v="3">3</button><button class="opt" data-v="4">4</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ГРУППА 3 -->
+    <div class="q-grp">
+      <span class="q-grp-label">Самосаботаж и мышление</span>
+      <div class="q-card" data-q="5" data-zone="Самосаботаж — внутренний тормоз">
+        <div class="q-num">5</div>
+        <div class="q-inner">
+          <div class="q-text">Я понимаю, что нужно делать — и не делаю. Начинаю и срываюсь. Потом виню себя. Это не лень — внутри что-то останавливает именно тогда, когда важно.</div>
+          <div class="opts"><button class="opt" data-v="0">0</button><button class="opt" data-v="1">1</button><button class="opt" data-v="2">2</button><button class="opt" data-v="3">3</button><button class="opt" data-v="4">4</button></div>
+        </div>
+      </div>
+      <div class="q-card" data-q="6" data-zone="Руминации и мыслежвачка">
+        <div class="q-num">6</div>
+        <div class="q-inner">
+          <div class="q-text">Голова перемалывает мысли — прошлые, будущие, «а вдруг». Не выключается перед сном, в тишине, даже в отпуске. Трудно просто побыть в моменте.</div>
+          <div class="opts"><button class="opt" data-v="0">0</button><button class="opt" data-v="1">1</button><button class="opt" data-v="2">2</button><button class="opt" data-v="3">3</button><button class="opt" data-v="4">4</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ГРУППА 4 -->
+    <div class="q-grp">
+      <span class="q-grp-label">Энергия, самооценка и отношения</span>
+      <div class="q-card" data-q="7" data-zone="Апатия и потеря вкуса к жизни">
+        <div class="q-num">7</div>
+        <div class="q-inner">
+          <div class="q-text">Просыпаюсь уже уставшим(ей). То, что раньше радовало — стало пресным. Просто тяну день, а не живу его. Временами ощущение, что «жизнь проходит мимо».</div>
+          <div class="opts"><button class="opt" data-v="0">0</button><button class="opt" data-v="1">1</button><button class="opt" data-v="2">2</button><button class="opt" data-v="3">3</button><button class="opt" data-v="4">4</button></div>
+        </div>
+      </div>
+      <div class="q-card" data-q="8" data-zone="Стыд, самокритика и вина">
+        <div class="q-num">8</div>
+        <div class="q-inner">
+          <div class="q-text">Внутренний критик громкий. Стыжусь своих реакций, сравниваю себя с другими. Иногда мысль: «сильные справляются сами, значит со мной что-то не так».</div>
+          <div class="opts"><button class="opt" data-v="0">0</button><button class="opt" data-v="1">1</button><button class="opt" data-v="2">2</button><button class="opt" data-v="3">3</button><button class="opt" data-v="4">4</button></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="run-btn" onclick="runResult()">Показать мой результат →</button>
+
+    <!-- RESULT -->
+    <div class="result-wrap" id="resultWrap">
+      <div class="result-card">
+        <div class="r-score" id="rScore">—</div>
+        <div class="r-of">из 32 баллов</div>
+        <div class="r-title" id="rTitle">—</div>
+        <div class="r-text" id="rText">—</div>
+
+        <div class="r-zones" id="rZones" style="display:none"></div>
+        <div class="r-what" id="rWhat"></div>
+
+        <a href="https://t.me/Anar_Akmedov" class="cta-btn" target="_blank">Написать «СТАРТ» → Telegram</a>
+        <div class="cta-note">
+          Бесплатная консультация 20–30 минут · Без записи · Без давления<br>
+          Я уточню твою ситуацию и честно скажу, чем именно могу помочь
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-name">Анар Ахмедов</div>
+  <div class="f-role">Нейрокоуч · Эксперт по работе с подсознанием · Метод «Бенефактор»</div>
+  <div class="f-disc">Материал носит образовательный характер и не является медицинским советом или диагнозом.</div>
+</footer>
+
+<script>
+// PROGRESS
+window.addEventListener('scroll', () => {
+  const p = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  document.getElementById('prog').style.width = p + '%';
+});
+
+// FADE IN
+const io = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('in'); }), {threshold:0.08});
+document.querySelectorAll('.fade').forEach(el => io.observe(el));
+
+// TEST
+const ans = {};
+
+document.querySelectorAll('.opt').forEach(b => {
+  b.addEventListener('click', function() {
+    const card = this.closest('.q-card');
+    const q = card.dataset.q;
+    ans[q] = { v: +this.dataset.v, zone: card.dataset.zone };
+    card.querySelectorAll('.opt').forEach(x => x.classList.remove('sel'));
+    this.classList.add('sel');
+    card.classList.add('answered');
+  });
+});
+
+function runResult() {
+  if(Object.keys(ans).length < 8) {
+    alert('Пожалуйста, ответь на все 8 вопросов — это нужно для точности результата.');
+    return;
+  }
+
+  let score = 0;
+  const hot = [], warm = [];
+  Object.values(ans).forEach(a => {
+    score += a.v;
+    if(a.v >= 3) hot.push(a.zone);
+    else if(a.v === 2) warm.push(a.zone);
+  });
+
+  document.getElementById('rScore').textContent = score;
+
+  let title, text, whatItems;
+
+  if(score <= 10) {
+    title = 'Программы работают тихо — но уже влияют';
+    text = 'Внешне всё держится. Ты справляешься. Но даже при невысоком балле подсознательные блоки уже создают фон напряжения, забирают энергию и иногда тормозят там, где важно. Хорошая новость: на этом уровне изменения происходят быстрее всего — паттерны ещё не успели стать глубокими.';
+    whatItems = [
+      'Профилактическая работа раскроет скрытые ограничения до того, как они усилятся',
+      'Хорошее время, чтобы закрыть то, что иногда мешает — раз и навсегда',
+    ];
+  } else if(score <= 20) {
+    title = 'Блоки активны — они уже меняют твою жизнь';
+    text = 'То, что ты замечаешь в теле, в действиях и в отношениях — это не случайность. Это программы подсознания, которые уже достаточно укрепились, чтобы влиять на ежедневное качество жизни. Это поправимо — и на этом этапе работа обычно даёт ощутимый результат уже в первые 1–2 сессии.';
+    whatItems = [
+      'Диагностика покажет конкретные нейронные программы, которые запускают твои реакции',
+      'Первые сдвиги заметны быстро — тело и голова начинают реагировать иначе',
+      'Важно не откладывать: чем дольше паттерн работает, тем глубже он закрепляется',
+    ];
+  } else {
+    title = 'Высокий уровень — программы управляют многим';
+    text = 'Судя по результату, подсознательные блоки уже серьёзно влияют на несколько сфер жизни. Это не означает «ты сломан(а)» — это означает, что реакции записаны глубоко и без точечной работы с причиной будут продолжать управлять поведением. Я работаю именно с такими ситуациями — и знаю, откуда начинать.';
+    whatItems = [
+      'Нужна полная диагностика: карта причин покажет связи между симптомами',
+      'Работаем с корнем — не с симптомами: именно поэтому прошлые попытки давали временный эффект',
+      'Есть чёткий маршрут: диагностика → сессии → измеримые маркеры → цель',
+    ];
+  }
+
+  document.getElementById('rTitle').textContent = title;
+  document.getElementById('rText').textContent = text;
+
+  const zEl = document.getElementById('rZones');
+  if(hot.length || warm.length) {
+    zEl.style.display = 'block';
+    zEl.innerHTML = '<div class="r-zones-h">Зоны с наибольшим влиянием прямо сейчас:</div>'
+      + hot.map(z => `<span class="z-tag hot">${z}</span>`).join('')
+      + warm.map(z => `<span class="z-tag">${z}</span>`).join('');
+  }
+
+  document.getElementById('rWhat').innerHTML = '<div class="r-what-h">Что это означает для тебя:</div>'
+    + whatItems.map(i => `<div class="r-what-item">${i}</div>`).join('');
+
+  const wrap = document.getElementById('resultWrap');
+  wrap.classList.add('show');
+  setTimeout(() => wrap.scrollIntoView({behavior:'smooth', block:'start'}), 100);
+}
+</script>
+</body>
+</html>
